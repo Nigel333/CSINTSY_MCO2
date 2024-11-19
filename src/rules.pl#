@@ -1,0 +1,41 @@
+% Breeze: Cell has breeze if any of the adjacent cells contain a Pit.
+breeze(X, Y) :- adjacent(X, Y, X1, Y1), pit(X1, Y1).
+
+% Glitter: Cell has glitter if it contains a Gold coin.
+glitter(X, Y) :- gold(X, Y).
+
+% Adjacent cells: X, Y are adjacent to X1, Y1 if they are horizontally or vertically neighboring.
+adjacent(X, Y, X1, Y1) :-
+    (X1 is X + 1; X1 is X - 1),
+    Y1 is Y;
+    (Y1 is Y + 1; Y1 is Y - 1).
+
+% Move action: Moving from (X, Y) to (X1, Y1)
+move(X, Y, X1, Y1) :-
+    adjacent(X, Y, X1, Y1), % Make sure (X1, Y1) is a valid adjacent cell.
+    safe(X1, Y1). % The cell must be safe to move to.
+
+% Grab action: Pick up a gold coin if the player is in a cell with gold.
+grab(X, Y) :-
+    gold(X, Y),
+    write('Gold collected!').
+
+% Leave action: The player can leave if they are on Home.
+leave(X, Y) :-
+    home(X, Y),
+    write('Leaving the world... game over!').
+
+% Pits and Gold coins
+pit(1, 3).
+pit(2, 2).
+gold(1, 4).
+gold(2, 5).
+gold(4, 1).
+
+% Home location
+home(1, 1).
+
+% Safe cells: Cells that are not pits and not adjacent to a pit
+safe(X, Y) :-
+    \+ pit(X, Y), % The cell is not a pit.
+    \+ (adjacent(X, Y, X1, Y1), pit(X1, Y1)). % The cell is not adjacent to a pit.

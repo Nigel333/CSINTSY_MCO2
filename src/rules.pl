@@ -1,0 +1,17 @@
+man(john).
+man(pete).
+man(tom).
+
+woman(jane).
+woman(penny).
+woman(tammy).
+
+parent_of(john, jane).
+parent_of(pete, penny).
+parent_of(tammy, tom).
+parent_of(john, pete).
+
+father_of(X, Y) :-
+    parent_of(X, Y),
+    man(Y).
+

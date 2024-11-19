@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Front",
+        "request": "launch",
+        "mainClass": "Front",  // Replace with your main class name
+        "classPaths": [
+          "lib/jpl.jar",
+          "bin"
+        ],
+        "vmArgs": "-Djava.library.path=\"C:/Program Files/swipl/bin\""  // Path to jpl.dll
+      }
+    ]
+  }
